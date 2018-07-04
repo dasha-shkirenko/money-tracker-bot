@@ -7,11 +7,6 @@ import gsheet
 bot = telebot.TeleBot(config.token)
 auth_users = [445219449, 394294378]
 
-users = {
-    445219449: 'Dasha',
-    394294378: 'Dima',
-}
-
 cost_lst = [
     'cost 1',
     'cost 2',
@@ -40,6 +35,7 @@ def on_inline_button_clicked(call):
 
 @bot.message_handler(content_types=["text"])
 def func(message):
+    user_name = message.from_user.first_name
     if auth_users.count(int(message.from_user.id)):
         try:
             int(message.text)
@@ -48,8 +44,7 @@ def func(message):
                 shared_memory['cost_type'],
                 shared_memory['cost_amount'])
                              )
-            author = users.get(int(message.from_user.id))
-            gsheet.add_to_sheet(author, shared_memory['cost_type'], shared_memory['cost_amount'])
+            gsheet.add_to_sheet(user_name, shared_memory['cost_type'], shared_memory['cost_amount'])
         except ValueError as v:
             bot.send_message(message.chat.id, 'Incorrect input {}'.format(v))
     else:

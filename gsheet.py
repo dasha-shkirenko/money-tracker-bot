@@ -6,14 +6,23 @@ scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/au
 
 credentials = ServiceAccountCredentials.from_json_keyfile_name('Money Tracker Bot-a66bfffca502.json', scope)
 
-gc = gspread.authorize(credentials)
-
-wks1 = gc.open('MoneyTrackerBot').worksheet('Dasha')
-wks2 = gc.open('MoneyTrackerBot').worksheet('Dima')
+open_file = gspread.authorize(credentials).open('MoneyTrackerBot')
 
 record_date = str(datetime.datetime.now().strftime("%m-%d-%Y"))
 record_time = str(datetime.datetime.now().strftime("%H:%M"))
 
 
-def add_to_sheet(user, cost_type, cost_amount):
-    wks1.append_row([user, record_date, record_time, cost_type, cost_amount])
+def user_check(user_id):
+    print(user_id)
+
+
+def add_to_sheet(user_name, cost_type, cost_amount):
+    try:
+        open_file.worksheet(user_name).append_row(
+            [record_date, record_time, cost_type, cost_amount]
+        )
+    except:
+        open_file.add_worksheet(title=user_name, rows=100, cols=20)
+        open_file.worksheet(user_name).append_row(
+            [record_date, record_time, cost_type, cost_amount]
+        )
