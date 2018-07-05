@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "money-tracker-bot",
+  "private_key_id": "a66bfffca50271257e523f36761916b241d1cb30",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCnhI5INLrZ73bd\nKNYFoREVT7v8JIDOavrvw2+GKhE1hCrBbkeHuWd3acnSfhR5ZaWaJ01ds4RgO5yG\nzu2ifFB5ktCSZvUsnM3Md4StvbvlYltZym7a1h7x2lAEDrDHN99nUptNZwmknLPb\ntHBSdfmqSj/Otek/KvpR5Fst8n/c+yBK56EKPZmYaktYzWvJcEqGB/97vyV2pdhq\nkm9p1sc2KUk+laSINf6p0c+QlhhtMY03y+iIdwu/hcgOfMiKlxfVjhEx5sc+o3SB\nmpQggxThBnvs9iwH7rAxCH0HvP9tVIvVzDSJW1l//CCJB3hI9Zmzg0E9b7327h2O\nQasTuW7XAgMBAAECggEAAkNuvrgDrE0pgHx8Q9A00GJm6lW97cwRPusXlyr7V4tF\nHp70VXeiV8E0qmTstuUyMx6D05fI2poDl+i02kSuu63JpqjAeE1YFIKq5sQRBVzq\nWhC7pbZN7bui6CMgrVhqatV5ZrbVMQWzAm1yNRMGABCHwy2/DIzym+enebv0kVJH\ns+20H0md7EfqgSIQUqMs7oNba8SM8/noiA5XyPzAKkWGKd9t/j3FhlJ/bH70a9Yj\nE4XpHmvApsZThrY6uVlcar8DhZxGDULl49g76n+elNSXATc2Qx29zm83QQucnMs8\nwRCsXsU3/5zKMXiOJTlsyb6jYhlI2LxMF+eglj5vTQKBgQDh0p1l9DGlLqdLbQbR\nhU3UWIlL4pxCmqC+m88+VKdLIIQtuPmViOZTTVoVOEEyMTw2R8zMwMi1bIN1OH9m\n1cK+mKMSG2X2rEZflr7R4Lu3Z1of3q6/VydJYdcDdxC0Lqyeg+BlMlXFDQhVcnsb\njQo2YlSmH0bnylnshRVI+POgdQKBgQC951UOtiPjrLxEkY5ijkoxdh7iG4eTDzsp\nI/B7blz5Z2f7LBsDYkCPJYgitngxmw5fRnEeSTxo9qW5T8W/f1Is+W6/4hcZ2VpK\nnsnnVN97aW8eGX3IPbcW918+OUIl1VJWwT8XDbVrvAMHAFwxbrV3gVbBEPT1ZDCA\nMQF0NfEomwKBgQDfGN5bXTa2xDKO97VmxVWw1Y8+ozBRNMZdyTyjjaqBNCyhpz8c\nFlXGMoMut5bhaXbdAW45UrR3WC8/XYOwKrrs5YslVmATpPsZcKowWt/ZP4fwOGVX\nr1imzLxJNhYQjJQJPqwwDdxigo+bKzCodVyDgf2y6O96C5Vvb8MphpnaCQKBgAeQ\n1teuNAHXGO0Wa3jLuHL+BL73X9BhE/dQoj0YqYWaNA9Ss4TP/kh1s1XGtUUsq0bq\ndIlDW6/G29VlMzis5uY5zcrBRDBYc3tzlhGsVPcCvVWSqGs44jl9A4NkHpmJRS2F\np3DQsACpzekSf5nMklg/g+hPN6MrKa+BxFAP8hqvAoGBAL3mr7oPagmtRLIPKpUh\nAC4i572n2tcFBHiQA4IEUnPn5tZ7o95Qyb0GNeQgLM9t1IcZbRnBm4y1Y/94o59D\nY3mxVyaQloPjd9Z1Uh8PecPF8FkLCWGcwLqv5EZ0DldAiI+0VvMurrt4wllCAAKs\nGkfLTI/sTgp9uBWtkc/F6zt/\n-----END PRIVATE KEY-----\n",
+  "client_email": "cashcounterbot@money-tracker-bot.iam.gserviceaccount.com",
+  "client_id": "113422779186419962180",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/cashcounterbot%40money-tracker-bot.iam.gserviceaccount.com"
+}
