@@ -105,6 +105,5 @@ venv.bak/
 .mypy_cache/
 
 # my
-Money Tracker Bot-a66bfffca502.json
 config.py
 .idea

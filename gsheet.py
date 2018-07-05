@@ -1,10 +1,13 @@
 import datetime
 import gspread
+import os
 from oauth2client.service_account import ServiceAccountCredentials
 
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
 
 credentials = ServiceAccountCredentials.from_json_keyfile_name('Money Tracker Bot-a66bfffca502.json', scope)
+credentials.private_key = os.environ['private_key']
+credentials.private_key_id = os.environ['private_key_id']
 
 open_file = gspread.authorize(credentials).open('MoneyTrackerBot')
 
