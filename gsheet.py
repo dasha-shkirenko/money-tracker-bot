@@ -12,7 +12,8 @@ wks1 = gc.open('MoneyTrackerBot').worksheet('Dasha')
 wks2 = gc.open('MoneyTrackerBot').worksheet('Dima')
 
 record_date = str(datetime.datetime.now().strftime("%m-%d-%Y"))
+record_time = str(datetime.datetime.now().strftime("%H:%M"))
 
 
 def add_to_sheet(user, cost_type, cost_amount):
-    wks1.append_row([user, record_date, cost_type, cost_amount])
+    wks1.append_row([user, record_date, record_time, cost_type, cost_amount])
