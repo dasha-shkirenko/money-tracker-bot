@@ -92,7 +92,7 @@ def get_day(call):
         bot.send_message(chat_id, output)
 
     else:
-        pass
+        bot.send_message(chat_id, 'You have no cost record for this date')
 
 
 
