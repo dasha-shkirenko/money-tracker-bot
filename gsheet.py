@@ -2,6 +2,8 @@ import datetime
 import gspread
 import os
 from oauth2client.service_account import ServiceAccountCredentials
+from itertools import groupby
+
 
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
 
@@ -13,10 +15,6 @@ open_file = gspread.authorize(credentials).open('MoneyTrackerBot')
 
 record_date = str(datetime.datetime.now().strftime("%Y-%m-%d"))
 record_time = str(datetime.datetime.now().strftime("%H:%M"))
-
-
-def user_check(user_id):
-    print(user_id)
 
 
 def add_to_sheet(user_name, cost_type, cost_amount):
@@ -32,15 +30,21 @@ def add_to_sheet(user_name, cost_type, cost_amount):
 def find_data(user_name, choosen_date):
     rd = open_file.worksheet(user_name).findall(choosen_date)
     rows = []
+    group_to_sum = {}
+    cost_group = ''
 
     for i in rd:
         rows.append(open_file.worksheet(user_name).row_values(i.row))
 
-    total_cost_amount = sum([int(row[3]) for row in rows])
-    return total_cost_amount
+    sorted_data = sorted(rows, key=lambda item: item[2])
 
+    for key, group in groupby(sorted_data, lambda x: x[2]):
+        cost_group = key
+        group_to_sum[key] = 0
+        for value in group:
+            group_to_sum[key] += int(value[3])
 
-
+    return group_to_sum
 
 
 

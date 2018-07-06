@@ -85,8 +85,11 @@ def get_day(call):
         shared_memory['choosen_date'] = call.message.text
 
         print(choosen_date)
-        cost_amount = gsheet.find_data(shared_memory['user_first_name'], str(choosen_date))
-        bot.send_message(chat_id, 'Date: {}, amount of costs: {}'.format(choosen_date, cost_amount))
+        groups_of_costs = gsheet.find_data(shared_memory['user_first_name'], str(choosen_date))
+        output = 'Aggregated data for {chosen_date}:\n'.format(chosen_date=choosen_date)
+        for cost_type, amount in groups_of_costs.items():
+            output += '{cost_type}: {amount}\n'.format(cost_type=cost_type, amount=amount)
+        bot.send_message(chat_id, output)
 
     else:
         pass
