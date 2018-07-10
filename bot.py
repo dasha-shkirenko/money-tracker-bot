@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# import config
-import os
+import config
+# import os
 import telebot
 from telebot import types
 import gsheet
@@ -8,8 +8,8 @@ from telegramcalendar import create_calendar
 import datetime
 import calendar
 
-# bot = telebot.TeleBot(config.token)
-bot = telebot.TeleBot(os.environ['telegram_token'])
+bot = telebot.TeleBot(config.token)
+# bot = telebot.TeleBot(os.environ['telegram_token'])
 auth_users = [445219449, 394294378]
 
 cost_lst = [
