@@ -8,8 +8,8 @@ from itertools import groupby
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
 
 credentials = ServiceAccountCredentials.from_json_keyfile_name('Money Tracker Bot-a66bfffca502.json', scope)
-credentials.private_key = os.environ['private_key']
-credentials.private_key_id = os.environ['private_key_id']
+# credentials.private_key = os.environ['private_key']
+# credentials.private_key_id = os.environ['private_key_id']
 
 open_file = gspread.authorize(credentials).open('MoneyTrackerBot')
 
@@ -46,5 +46,12 @@ def find_data(user_name, choosen_date):
 
     return group_to_sum
 
+
+def delete_last_record(user_name):
+   rc = open_file.worksheet(user_name).row_count
+   last_record = open_file.worksheet(user_name).row_values(rc)
+   dlr = open_file.worksheet(user_name).delete_row(rc)
+
+   return last_record, dlr
 
 

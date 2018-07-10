@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# import config
-import os
+import config
+# import os
 import telebot
 from telebot import types
 import gsheet
@@ -8,8 +8,8 @@ from telegramcalendar import create_calendar
 import datetime
 import calendar
 
-# bot = telebot.TeleBot(config.token)
-bot = telebot.TeleBot(os.environ['telegram_token'])
+bot = telebot.TeleBot(config.token)
+# bot = telebot.TeleBot(os.environ['telegram_token'])
 auth_users = [445219449, 394294378]
 
 cost_lst = [
@@ -25,6 +25,15 @@ shared_memory = {}
 current_shown_dates = {}
 
 
+@bot.message_handler(commands=['remove'])
+def del_last_record(message):
+    if auth_users.count(int(message.from_user.id)):
+       x = gsheet.delete_last_record(message.from_user.first_name)
+       bot.send_message(message.chat.id, 'Last record was removed: \n{}: {}'.format(x[0][2], x[0][3]))
+    else:
+            bot.send_message(message.chat.id, 'Access denied')
+
+
 @bot.message_handler(commands=['statistic'])
 def period(message):
     now = datetime.datetime.now()  # Current date
@@ -35,9 +44,6 @@ def period(message):
     keyboard = types.InlineKeyboardMarkup()
     keyboard.add(*[types.InlineKeyboardButton(text=name, callback_data=name) for name in ['DAY', 'MONTH']])
     bot.send_message(message.chat.id, 'Choose period:', reply_markup=keyboard)
-
-    # shared_memory['chat_id'] = message.chat.id
-    # shared_memory['user_first_name'] = message.from_user.first_name
 
 
 @bot.callback_query_handler(func=lambda call: call.data == 'DAY')
@@ -177,7 +183,6 @@ def func(message):
             bot.send_message(message.chat.id, 'Incorrect input {}'.format(v))
     else:
         bot.send_message(message.chat.id, 'Access denied')
-
 
 
 bot.polling()
