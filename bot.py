@@ -36,14 +36,14 @@ def period(message):
     keyboard.add(*[types.InlineKeyboardButton(text=name, callback_data=name) for name in ['DAY', 'MONTH']])
     bot.send_message(message.chat.id, 'Choose period:', reply_markup=keyboard)
 
-    shared_memory['chat_id'] = message.chat.id
-    shared_memory['user_first_name'] = message.from_user.first_name
+    # shared_memory['chat_id'] = message.chat.id
+    # shared_memory['user_first_name'] = message.from_user.first_name
 
 
 @bot.callback_query_handler(func=lambda call: call.data == 'DAY')
 def my_calendar(call):
     now = datetime.datetime.now()
-    chat_id = shared_memory['chat_id']
+    chat_id = call.message.chat.id
     date = (now.year, now.month)
     current_shown_dates[chat_id] = date  # Saving the current date in a dict
 
@@ -90,7 +90,7 @@ def previous_month(call):
 
 
 @bot.callback_query_handler(func=lambda call: call.data[0:13] == 'calendar-day-')
-def get_month(call):
+def get_day(call):
     chat_id = call.message.chat.id
     saved_date = current_shown_dates.get(chat_id)
     if saved_date is not None:
@@ -99,15 +99,18 @@ def get_month(call):
         bot.answer_callback_query(call.id, text="")
         shared_memory['choosen_date'] = call.message.text
 
-        groups_of_costs = gsheet.find_data(shared_memory['user_first_name'], str(choosen_date))
+        groups_of_costs = gsheet.find_data(call.message.chat.first_name, str(choosen_date))
 
-        output = 'Aggregated data for {chosen_date}:\n'.format(chosen_date=choosen_date)
-        for cost_type, amount in groups_of_costs.items():
-            output += '{cost_type}: {amount}\n'.format(cost_type=cost_type, amount=amount)
-        bot.send_message(chat_id, output)
+        if groups_of_costs == {}:
+            bot.send_message(chat_id, 'No record on this date')
+        else:
+            output = 'Total costs for {chosen_date}:\n'.format(chosen_date=choosen_date)
+            for cost_type, amount in groups_of_costs.items():
+                output += '   {cost_type}: {amount} \n'.format(cost_type=cost_type, amount=amount)
+            bot.send_message(chat_id, output)
 
     else:
-        bot.send_message(chat_id, 'You have no cost record for this date')
+        bot.send_message(chat_id, 'Date is null, try again')
 
 
 @bot.callback_query_handler(func=lambda call: call.data == 'MONTH')
@@ -118,7 +121,7 @@ def get_month(call):
     keyboard = types.InlineKeyboardMarkup()
     keyboard.add(*[types.InlineKeyboardButton(
         text=calendar.month_name[name], callback_data=name) for name in month])
-    bot.send_message(shared_memory['chat_id'], 'Select month:', reply_markup=keyboard)
+    bot.send_message(call.message.chat.id, 'Select month:', reply_markup=keyboard)
 
 
 # @bot.callback_query_handler(lambda query: True)
@@ -134,7 +137,7 @@ def get_month(call):
 #             i = '0' + str(i)
 #         choosen_date = str(datetime.datetime.now().year) + '-' + str(shared_memory['month']) + '-' + str(i)
 #
-#         date_lst.update(gsheet.find_data(shared_memory['user_first_name'], str(choosen_date)))
+#         date_lst.update(gsheet.find_data(call.message.chat.first_name, str(choosen_date)))
 #
 #     output = 'Output for choosen month: {}:\n'.format(shared_memory['month'])
 #     for cost_type, amount in date_lst.items():
@@ -144,21 +147,18 @@ def get_month(call):
 #
 
 
-
-
 @bot.message_handler(commands=['start'])
 def start(message):
     keyboard = types.InlineKeyboardMarkup()
     keyboard.add(*[types.InlineKeyboardButton(text=name, callback_data=name) for name in cost_lst])
     bot.send_message(message.chat.id, 'Choose cost type:', reply_markup=keyboard)
-    shared_memory['chat_id'] = message.chat.id
 
 
 @bot.callback_query_handler(lambda query: True)
 def on_inline_button_clicked(call):
     shared_memory['cost_type'] = call.data
     markup = types.ForceReply(selective=False)
-    bot.send_message(shared_memory['chat_id'], "Amount of {} is:".format(call.data), reply_markup=markup)
+    bot.send_message(call.message.chat.id, "Amount of {} is:".format(call.data), reply_markup=markup)
 
 
 @bot.message_handler(content_types=["text"])
